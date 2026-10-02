@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#211b4a">
+  <meta name="description" content="Aide Nyna à rallumer le Phare des Étoiles en t'entraînant aux tables de multiplication.">
+  <title>Nyna et le Phare des Étoiles</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./style.css">
+  <script src="./game.js" defer></script>
+</head>
+<body>
+  <div class="app">
+    <header class="site-header">
+      <div class="brand"><span class="brand-mark" aria-hidden="true">✦</span><span><strong>Nyna</strong><small>et le Phare des Étoiles</small></span></div>
+      <div class="header-actions">
+        <span class="wallet" aria-label="Éclats disponibles"><span aria-hidden="true">✧</span><strong id="walletAmount">0</strong><span class="wallet-word">éclats</span></span>
+        <button id="soundButton" class="icon-button" type="button" aria-label="Activer les sons" aria-pressed="false">🔇</button>
+      </div>
+    </header>
+
+    <nav id="mainNav" class="main-nav" aria-label="Navigation du jeu">
+      <button id="homeNav" type="button" class="nav-button is-active" aria-current="page">🗺️ L’aventure</button>
+      <button id="shopNav" type="button" class="nav-button">🎒 La boutique</button>
+    </nav>
+
+    <main>
+      <section id="homeScreen" class="screen" aria-labelledby="homeTitle">
+        <div class="hero">
+          <img class="hero-art" src="./assets/nyna-aventure.webp" alt="Nyna explore des îles flottantes avec sa boussole étoilée">
+          <div class="hero-shade"></div>
+          <div class="hero-copy">
+            <p class="hero-kicker">Une aventure à jouer chaque jour</p>
+            <h1 id="homeTitle">Nyna et le <em>Phare des Étoiles</em></h1>
+            <p>Les îles du ciel ont perdu leur chemin. Nyna doit retrouver cinq lentilles magiques pour rallumer le phare avant la Fête des Étoiles.</p>
+            <button id="heroPlayButton" class="button button-sun" type="button">✨ Aider Nyna</button>
+          </div>
+        </div>
+
+        <div class="home-grid">
+          <section class="panel story-panel" aria-labelledby="storyTitle">
+            <div class="section-top"><span class="eyebrow">La grande aventure</span><span id="lensCount" class="tiny-badge">0 / 5 lentilles</span></div>
+            <h2 id="storyTitle">La route de Nyna</h2>
+            <div id="storySteps" class="story-steps" aria-label="Progression de l’aventure"></div>
+            <div class="chapter-card">
+              <span id="chapterIcon" class="chapter-icon" aria-hidden="true">🌿</span>
+              <div><p id="chapterLabel" class="chapter-label">Étape 1 sur 5</p><h3 id="chapterTitle">La Forêt des Lucioles</h3><p id="chapterDescription"></p></div>
+            </div>
+            <div class="bar" role="progressbar" aria-label="Lumière jusqu’à la prochaine lentille" aria-valuemin="0" aria-valuemax="6" aria-valuenow="0" id="storyProgress"><div id="storyProgressFill" class="bar-fill"></div></div>
+            <p id="storyProgressText" class="progress-caption"></p>
+          </section>
+
+          <section class="panel daily-panel" aria-labelledby="dailyTitle">
+            <div class="section-top"><span class="eyebrow">Le carnet de Nyna</span><span class="tiny-badge">Chaque jour</span></div>
+            <h2 id="dailyTitle">Missions du jour</h2>
+            <p id="dailyDate" class="muted"></p>
+            <div id="dailyList" class="daily-list"></div>
+            <p class="daily-note">Reviens demain pour de nouveaux défis. Tu peux toujours jouer autant que tu veux.</p>
+          </section>
+        </div>
+
+        <section id="playPanel" class="panel play-panel" aria-labelledby="playTitle">
+          <div class="play-heading"><div><span class="eyebrow">Prépare ton expédition</span><h2 id="playTitle">Quelles tables explorer ?</h2><p class="muted">Choisis les tables que tu veux entraîner. Il y aura 10 calculs, puis une petite révision si besoin.</p></div><span class="play-icon" aria-hidden="true">🧭</span></div>
+          <div id="tableGrid" class="table-grid" role="group" aria-label="Tables de multiplication"></div>
+          <div class="table-tools"><p id="selectionHint" aria-live="polite"></p><div><button id="selectAllButton" type="button" class="text-button">Tout choisir</button><button id="clearButton" type="button" class="text-button">Effacer</button></div></div>
+          <div class="play-actions"><button id="startButton" type="button" class="button button-sun">🚀 Partir en expédition</button><p>Une bonne réponse donne des éclats. Si tu réponds vite, tu reçois un petit bonus. Aucun chrono ne t’arrête.</p></div>
+        </section>
+
+        <section class="panel camp-teaser" aria-labelledby="campTeaserTitle">
+          <span class="camp-teaser-icon" aria-hidden="true">🎒</span><div><span class="eyebrow">Le sac d’aventurière</span><h2 id="campTeaserTitle">Des trésors à découvrir</h2><p class="muted">Échange tes éclats contre des compagnons et des objets pour Nyna.</p></div><button id="teaserShopButton" type="button" class="button button-outline">Voir la boutique →</button>
+        </section>
+      </section>
+
+      <section id="shopScreen" class="screen" aria-labelledby="shopTitle" hidden>
+        <div class="sub-hero shop-hero"><div><span class="eyebrow">L’atelier des merveilles</span><h1 id="shopTitle">La boutique de Nyna</h1><p>Chaque objet rejoint sa collection pour l’aider à imaginer la suite de son voyage. Les éclats se gagnent uniquement en jouant.</p></div><span aria-hidden="true">🎒✨</span></div>
+        <section class="panel collection-panel" aria-labelledby="collectionTitle">
+          <div class="collection-art"><img src="./assets/nyna-aventure.webp" alt="Nyna et sa boussole dans les îles du ciel"></div>
+          <div class="collection-content"><span class="eyebrow">Les découvertes de Nyna</span><h2 id="collectionTitle">Son sac d’aventurière</h2><p id="collectionCount" class="muted"></p><div id="collectionItems" class="collection-items" aria-live="polite"></div></div>
+        </section>
+        <section class="shop-section" aria-labelledby="shopItemsTitle"><div class="shop-section-heading"><div><span class="eyebrow">À collectionner</span><h2 id="shopItemsTitle">Choisis un trésor</h2></div><span id="shopWallet" class="shop-wallet">✧ 0 éclats</span></div><div id="shopGrid" class="shop-grid"></div></section>
+      </section>
+
+      <section id="gameScreen" class="screen game-screen" aria-labelledby="gameTitle" hidden>
+        <div class="game-top"><button id="backButton" type="button" class="back-button">← Retour à la carte</button><span id="gameChapter" class="game-chapter"></span></div>
+        <div class="panel question-panel">
+          <div class="question-header"><span id="questionCounter" class="question-counter">Question 1 sur 10</span><span id="sessionCoins" class="session-coins">✧ 0 éclat</span></div>
+          <div id="questionProgress" class="bar question-progress" role="progressbar" aria-label="Progression des dix calculs" aria-valuemin="0" aria-valuemax="10" aria-valuenow="0"><div id="questionProgressFill" class="bar-fill"></div></div>
+          <div class="question-copy"><span class="eyebrow">Nyna a besoin de toi</span><h1 id="gameTitle">Trouve le bon chemin !</h1><p id="questionPrompt">Prends ton temps, chaque réponse compte.</p></div>
+          <div class="equation-wrap"><div id="equation" class="equation" aria-live="polite"></div><div class="answer-row"><input id="answerInput" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="3" autocomplete="off" aria-label="Ta réponse"><span aria-hidden="true">?</span></div></div>
+          <div id="feedback" class="feedback" role="status" aria-live="polite" hidden></div>
+          <div id="keypad" class="keypad" role="group" aria-label="Pavé numérique"><button type="button" data-digit="1">1</button><button type="button" data-digit="2">2</button><button type="button" data-digit="3">3</button><button type="button" data-digit="4">4</button><button type="button" data-digit="5">5</button><button type="button" data-digit="6">6</button><button type="button" data-digit="7">7</button><button type="button" data-digit="8">8</button><button type="button" data-digit="9">9</button><button type="button" class="key-utility" data-action="clear">Effacer</button><button type="button" data-digit="0">0</button><button type="button" class="key-utility" data-action="backspace" aria-label="Effacer le dernier chiffre">⌫</button></div>
+          <div class="answer-actions"><button id="checkButton" type="button" class="button button-sun" disabled>Vérifier ma réponse</button><button id="nextButton" type="button" class="button button-sun" hidden>Continuer →</button></div>
+          <p class="keyboard-note">Tu peux aussi utiliser le clavier et appuyer sur Entrée.</p>
+        </div>
+      </section>
+
+      <section id="resultScreen" class="screen result-screen" aria-labelledby="resultTitle" hidden>
+        <div class="panel result-panel"><div class="result-visual" aria-hidden="true">🌟</div><span class="eyebrow">Expédition terminée</span><h1 id="resultTitle">Bravo, Nyna et toi !</h1><p id="resultMessage" class="result-message"></p><div id="chapterReward" class="chapter-reward" hidden></div><div class="result-stats"><div><strong id="resultScore">0/10</strong><span>du premier coup</span></div><div><strong id="resultEarned">+0</strong><span>éclats gagnés</span></div><div><strong id="resultFast">0</strong><span>bonus éclair</span></div></div><div id="reviewBox" class="review-box" hidden><h2>Calculs à revoir tranquillement</h2><div id="reviewList" class="review-list"></div></div><div class="result-actions"><button id="retryButton" type="button" class="button button-sun">🚀 Nouvelle expédition</button><button id="practiceButton" type="button" class="button button-outline" hidden>Rejouer mes calculs</button><button id="resultShopButton" type="button" class="button button-outline">Voir la boutique</button><button id="chooseButton" type="button" class="text-button">Retour à la carte</button></div></div>
+      </section>
+    </main>
+    <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+    <footer>Une aventure pour Nyna, à son rythme ✨</footer>
+  </div>
+</body>
+</html>

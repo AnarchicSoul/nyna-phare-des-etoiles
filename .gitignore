@@ -1,0 +1,17 @@
+# Android build output and local configuration
+android/.gradle/
+android/**/build/
+android/local.properties
+android/app/src/main/assets/
+
+# Generated distribution files and signing keys
+*.apk
+*.aab
+*.keystore
+*.jks
+*.p12
+nyna-netlify.zip
+
+# Unused source art and local preview screenshots
+/assets/nyna-aventure.png
+/apercu-*.png
